@@ -15,8 +15,36 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/lib")
 
 add_subdirectory(lib/glfw)
 
-add_executable("${PROJECT_NAME}" 
-	src/app.cpp
+
+add_executable("${PROJECT_NAME}"
+	src/app.cpp #<< Main >>
+	
+	include/Renderer.h
+	include/IndexBuffer.h
+	include/Shader.h
+	include/VertexArray.h
+	include/VertexBuffer.h
+	include/VertexBufferLayout.h
+	include/Vertex.h
+	include/Engine.h
+	include/Camera.h
+	include/CameraController.h
+	include/FrustumCull.h
+	include/Transform.h
+
+	
+	src/Renderer.cpp
+	src/IndexBuffer.cpp
+	src/Shader.cpp
+	src/VertexArray.cpp
+	src/VertexBuffer.cpp
+	src/Engine.cpp
+	src/CameraController.cpp
+	
+	#<< Resources
+	src/res/grass.shader
+	src/res/ground.shader
+	#>> Resources
 	
 	#<< ImGui
 	src/vendor/imgui/imgui.cpp
@@ -26,6 +54,7 @@ add_executable("${PROJECT_NAME}"
 	#>> ImGui
 )
 
+add_dependencies("${PROJECT_NAME}" CopyResources)
 target_compile_definitions("${PROJECT_NAME}" PUBLIC GLEW_STATIC)
 
 target_include_directories("${PROJECT_NAME}" PUBLIC
@@ -33,9 +62,18 @@ target_include_directories("${PROJECT_NAME}" PUBLIC
 	lib/glew/include
 	lib/glfw/include
 	lib/assimp/include
-	
+	lib/simplex_noise
 	src/vendor
-	)
+)
+	
+add_custom_target(CopyResources ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/res/
+        ${CMAKE_CURRENT_BINARY_DIR}/res
+    COMMENT "Copying Resources to the build directory"
+	
+	src/res/grass.shader
+)
 	
 target_link_directories("${PROJECT_NAME}" PUBLIC 
 	"${CMAKE_CURRENT_BINARY_DIR}/lib/glfw/src/Debug"
@@ -47,6 +85,7 @@ target_link_directories("${PROJECT_NAME}" PUBLIC
 
 target_link_libraries("${PROJECT_NAME}" PUBLIC 
 	glfw3
+	simplex
 	glew32s.lib
 	opengl32.lib
     User32.lib
@@ -55,6 +94,14 @@ target_link_libraries("${PROJECT_NAME}" PUBLIC
 	
 	assimp-vc143-mtd.lib
 )
-	file(COPY_FILE ${CMAKE_CURRENT_SOURCE_DIR}/lib/assimp/assimp-vc143-mtd.dll ${CMAKE_CURRENT_BINARY_DIR}/assimp-vc143-mtd.dll)
+
+set_target_properties("${PROJECT_NAME}"
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)
+
+#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath=${}")
+	
+file(COPY_FILE ${CMAKE_CURRENT_SOURCE_DIR}/lib/assimp/assimp-vc143-mtd.dll ${CMAKE_CURRENT_BINARY_DIR}/assimp-vc143-mtd.dll)
     #file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/renderer-opengl/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
     #file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/renderer-opengl/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
