@@ -23,7 +23,6 @@
 #include "IndexBuffer.h"
 #include "Camera.h"
 #include "CameraController.h"
-#include "GrassChunk.h"
 
 namespace timothy
 {
@@ -238,6 +237,7 @@ namespace timothy
 
 				m_shader->SetUniformMat4f("u_MVP", mvp);
 				m_shader->SetUniform1f("u_time", glfwGetTime());
+				m_shader->SetUniform3fv("cameraPos", glm::vec3(m_camera->Transform.Position.x * -1.0f , m_camera->Transform.Position.y * -1.0f, m_camera->Transform.Position.z * -1.0f));
 
 				int chunksToDraw = 0;
 
@@ -257,6 +257,7 @@ namespace timothy
 				// -- Chunk Culling --
 				groundShader.Bind();
 				groundShader.SetUniformMat4f("u_MVP", mvp);
+				groundShader.SetUniform3fv("cameraPos", glm::vec3(m_camera->Transform.Position.x * -1.0f, m_camera->Transform.Position.y * -1.0f, m_camera->Transform.Position.z * -1.0f));
 				m_renderer->DrawInstanced(groundVAO, groundIBO, groundShader, chunksToDraw);
 
 				m_renderer->DrawInstanced(VAO, IBO, *m_shader,chunksToDraw * INSTANCES_PER_CHUNK);

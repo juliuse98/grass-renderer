@@ -19,7 +19,7 @@ bool GLLogCall(const char* function, const char* file, int line)
 namespace timothy 
 {
     Renderer::Renderer()
-    : m_ClearColor(glm::vec4(5/255.0f, 32/255.0f, 64/255.0f, 1.0f))
+    : m_ClearColor(glm::vec4(200/255.0f, 230/255.0f, 240/255.0f, 1.0f))
     {
         GLCall(glEnable(GL_DEPTH_TEST));
         GLCall(glDisable(GL_CULL_FACE));

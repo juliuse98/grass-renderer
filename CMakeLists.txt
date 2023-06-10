@@ -85,7 +85,6 @@ target_link_directories("${PROJECT_NAME}" PUBLIC
 
 target_link_libraries("${PROJECT_NAME}" PUBLIC 
 	glfw3
-	simplex
 	glew32s.lib
 	opengl32.lib
     User32.lib
