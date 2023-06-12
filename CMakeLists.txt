@@ -70,14 +70,17 @@ add_custom_target(CopyResources ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_CURRENT_SOURCE_DIR}/src/res/
         ${CMAKE_CURRENT_BINARY_DIR}/res
+	COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/res/
+        ${CMAKE_CURRENT_BINARY_DIR}/bin/${CMAKE_CFG_INTDIR}/res
     COMMENT "Copying Resources to the build directory"
 	
 	src/res/grass.shader
 )
 	
 target_link_directories("${PROJECT_NAME}" PUBLIC 
-	"${CMAKE_CURRENT_BINARY_DIR}/lib/glfw/src/Debug"
-	"${CMAKE_CURRENT_BINARY_DIR}/lib/glfw/src/Debug"
+	"${CMAKE_CURRENT_BINARY_DIR}/lib/glfw/Debug"
+	"${CMAKE_CURRENT_BINARY_DIR}/lib/glfw/Debug"
 	"${CMAKE_CURRENT_BINARY_DIR}/lib/imgui/src/Debug"
 	"${CMAKE_CURRENT_LIST_DIR}/lib/glew/lib/Release/x64"
 	"${CMAKE_CURRENT_LIST_DIR}/lib/assimp"
