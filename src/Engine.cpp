@@ -37,7 +37,7 @@ namespace timothy
 
 	Engine::Engine() : m_offsets(std::make_unique<std::vector<glm::vec3>>())
 	{
-		m_camera = std::make_unique<timothy::Camera>(glm::perspective(45.0f, (float)(DEFAULT_WINDOW_WIDTH) / (float)(DEFAULT_WINDOW_HEIGHT), 1.0f, 500.0f), glm::vec3(0.0f, -60.0f, -45.0f), glm::vec3(0.0f));
+		m_camera = std::make_unique<timothy::Camera>(glm::perspective(45.0f, (float)(DEFAULT_WINDOW_WIDTH) / (float)(DEFAULT_WINDOW_HEIGHT), 1.0f, 500.0f), glm::vec3(0.0f, -10.0f, -45.0f), glm::vec3(0.0f));
 	}
 
 	Engine::~Engine()

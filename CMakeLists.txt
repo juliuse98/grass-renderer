@@ -80,7 +80,6 @@ add_custom_target(CopyResources ALL
 	
 target_link_directories("${PROJECT_NAME}" PUBLIC 
 	"${CMAKE_CURRENT_BINARY_DIR}/lib/glfw/Debug"
-	"${CMAKE_CURRENT_BINARY_DIR}/lib/glfw/Debug"
 	"${CMAKE_CURRENT_BINARY_DIR}/lib/imgui/src/Debug"
 	"${CMAKE_CURRENT_LIST_DIR}/lib/glew/lib/Release/x64"
 	"${CMAKE_CURRENT_LIST_DIR}/lib/assimp"
